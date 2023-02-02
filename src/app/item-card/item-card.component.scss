@@ -1,0 +1,24 @@
+$main-color: #E5E5E5;
+$extra-color: #A5A5A5;
+$primary-color: #2962FF;
+
+.wrapper {
+  border-bottom: 2px solid $extra-color;
+  .title {
+    display: flex;
+    gap: 10px;
+    a {
+      position: relative;
+      top: 4px;
+      color: $primary-color;
+    }
+  }
+  .data {
+    display: flex;
+    gap: 80px;
+  }
+  p:nth-child(even) {
+    color: $primary-color;
+    margin-right: 80px;
+  }
+}

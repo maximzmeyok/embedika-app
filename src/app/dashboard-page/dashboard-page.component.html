@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <section class="dashboard">
+    <h1>Anilist</h1>
+    
+    <div class="items" *ngIf="hasItems; else loading">
+      <app-item-card [item]="item" *ngFor="let item of foundItems"></app-item-card>
+
+      <div class="pagination">
+        <button mat-stroked-button [disabled]="isFirstPage" (click)="previousPage()">Previous</button>
+        {{ currentpage }}
+        <button mat-stroked-button [disabled]="isLastPage" (click)="nextPage()">Next</button>
+      </div>
+    </div>
+    
+    <ng-template #loading>
+      <p>Loading</p>
+    </ng-template>
+  </section>
+
+  <aside>
+    <app-filters (onFormChange)="submit()"></app-filters>
+  </aside>
+</div>

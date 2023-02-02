@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div class="title">
+    <h2> {{ item.title.userPreferred | titlecase }}</h2>
+    <a [routerLink]="['/item', item.id]">
+      <mat-icon fontIcon="arrow_forward">
+      </mat-icon>
+    </a>
+  </div>
+  <div class="data">
+    <p>Status</p>
+    <p>{{ item.status | titlecase }}</p>
+    <p>Season</p>
+    <p>{{ item.season || 'unknown' | titlecase }}</p>
+  </div>
+</div>

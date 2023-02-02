@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+$main-color: #E5E5E5;
+$extra-color: #A5A5A5;
+$primary-color: #2962FF;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: $main-color;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+small {
+  color: $primary-color;
+}
