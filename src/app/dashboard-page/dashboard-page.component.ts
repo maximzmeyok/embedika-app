@@ -1,5 +1,5 @@
 import { FiltersService } from './../shared/services/filters.service';
-import { ApiResponse, ApiResponseDataPageMedia } from './../shared/interfaces';
+import { ApiResponse, ApiResponseMedia, ApiResponseRow } from './../shared/interfaces';
 import { RestApiService } from './../shared/services/rest-api.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ResponseService } from '../shared/services/response.service';
@@ -13,14 +13,14 @@ import { ResponseService } from '../shared/services/response.service';
 export class DashboardPageComponent implements OnInit {
 
   public get hasItems(): boolean {
-    return !!this._responseService.items;
+    return !!this._responseService.foundItems;
   }
 
-  public get foundItems(): ApiResponseDataPageMedia[] {
-    return this._responseService.items;
+  public get foundItems(): ApiResponseMedia[] {
+    return this._responseService.foundItems;
   }
 
-  public get currentpage(): number {
+  public get currentPage(): number {
     return this._filtersService.currentPage;
   }
 
@@ -29,7 +29,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   public get isLastPage(): boolean {
-    return this._filtersService.isLastPage;
+    return this._filtersService.currentPage === this._filtersService.lastPage;
   }
 
   constructor(
@@ -44,7 +44,9 @@ export class DashboardPageComponent implements OnInit {
   }
 
   public searchItems(): void {
-    this._restApiService.getItems().subscribe((apiResponse: ApiResponse) => {
+    this._restApiService.getItems().subscribe((apiResponseRow: ApiResponseRow) => {
+      const apiResponse: ApiResponse = apiResponseRow.data.Page;
+
       this._responseService.parseApiResponse(apiResponse);
       this._changeDetector.markForCheck();
     });
@@ -65,7 +67,7 @@ export class DashboardPageComponent implements OnInit {
     this.searchItems();
   }
 
-  public trackItemsByFn(index: number, item: ApiResponseDataPageMedia): number {
+  public trackItemsByFn(index: number, item: ApiResponseMedia): number {
     return item.id;
   }
 }

@@ -1,31 +1,31 @@
+export interface ApiResponseRow {
+  data: ApiResponseRowData;
+}
+
+export interface ApiResponseRowData {
+  Page: ApiResponse;
+}
+
 export interface ApiResponse {
-  data: ApiResponseData;
+  pageInfo: ApiResponsePageInfo;
+  media: ApiResponseMedia[];
 }
 
-export interface ApiResponseData {
-  Page: ApiResponseDataPage;
-}
-
-export interface ApiResponseDataPage {
-  pageInfo: ApiResponseDataPagePageInfo;
-  media: ApiResponseDataPageMedia[];
-}
-
-export interface ApiResponseDataPagePageInfo {
+export interface ApiResponsePageInfo {
   total: number;
   currentPage: number;
   perPage: number;
   lastPage: number;
 }
 
-export interface ApiResponseDataPageMedia {
+export interface ApiResponseMedia {
   id: number;
-  title: ApiResponseDataPageMediaTitle;
+  title: ApiResponseMediaTitle;
   season: string;
   status: string;
 }
 
-export interface ApiResponseDataPageMediaTitle {
+export interface ApiResponseMediaTitle {
   userPreferred: string;
 }
 

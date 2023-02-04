@@ -22,7 +22,7 @@ export class ItemPageComponent {
   public ngOnInit(): void {
     this.post$ = this._route.params.pipe(
       switchMap((params: Params) => {
-        return this._postService.getById(params['id']);
+        return this._postService.getItem(params['id']);
       }),
       map((response) => response.data.Media)
     );

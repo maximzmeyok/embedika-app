@@ -1,27 +1,26 @@
 import { FiltersService } from './filters.service';
-import { ApiResponse, ApiResponseDataPageMedia } from './../interfaces';
+import { ApiResponse, ApiResponseMedia } from './../interfaces';
 import { Injectable } from "@angular/core";
 
 @Injectable()
 export class ResponseService {
-  public items: ApiResponseDataPageMedia[];
+  public foundItems: ApiResponseMedia[];
 
   constructor(
     private _filtersService: FiltersService,
   ) {}
 
-  public parseApiResponse(apiResponse: ApiResponse) {
-    const itemsLength: number = apiResponse.data.Page.media.length;
-    const currentPage: number = apiResponse.data.Page.pageInfo.currentPage;
+  public parseApiResponse(apiResponse: ApiResponse): void {
+    const itemsNumber: number = apiResponse.media.length;
+    const itemsPerPage: number = apiResponse.pageInfo.perPage;
+    const hasMoreItems: boolean = itemsNumber === itemsPerPage;
 
-    this._filtersService.lastPage = currentPage + 1;
+    this.foundItems = apiResponse.media;
 
-    this.items = apiResponse.data.Page.media;
-
-    if (itemsLength === this._filtersService.perPage) {
+    if (hasMoreItems) {
       return;
     }
 
-    this._filtersService.lastPage = currentPage;
+    this._filtersService.makeCurrentPageLast();
   }
 }

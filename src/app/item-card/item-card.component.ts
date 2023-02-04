@@ -8,8 +8,4 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class ItemCardComponent {
   @Input() public item: any;
-
-  ngOnInit() {
-    
-  }
 }

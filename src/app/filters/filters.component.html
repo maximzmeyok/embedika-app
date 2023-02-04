@@ -1,7 +1,7 @@
 <div class="wrapper">
   <h2>Filters</h2>
 
-  <form [formGroup]="form" (change)="search()">
+  <form [formGroup]="filtersForm" (change)="searchByFilters()">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input
@@ -13,7 +13,7 @@
 
     <mat-form-field>
       <mat-label>Status</mat-label>
-      <mat-select formControlName="select" (selectionChange)="search()">
+      <mat-select formControlName="select" (selectionChange)="searchByFilters()">
         <mat-option></mat-option>
         <mat-option value="FINISHED">Finished</mat-option>
         <mat-option value="RELEASING">Releasing</mat-option>
@@ -24,7 +24,7 @@
     </mat-form-field>
 
     <label id="season">Season</label>
-    <mat-radio-group aria-labelledby="season" class="radio-buttons" formControlName="radio" (change)="search()">
+    <mat-radio-group aria-labelledby="season" class="radio-buttons" formControlName="radio" (change)="searchByFilters()">
       <mat-radio-button value="WINTER">Winter</mat-radio-button>
       <mat-radio-button value="SPRING">Spring</mat-radio-button>
       <mat-radio-button value="SUMMER">Summer</mat-radio-button>

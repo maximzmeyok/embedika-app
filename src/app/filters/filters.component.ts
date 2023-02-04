@@ -1,6 +1,5 @@
-import { RestApiService } from './../shared/services/rest-api.service';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FiltersData } from '../shared/interfaces';
 import { FiltersService } from '../shared/services/filters.service';
 
@@ -13,7 +12,7 @@ import { FiltersService } from '../shared/services/filters.service';
 export class FiltersComponent implements OnInit, OnDestroy {
   @Output() public onFiltersChange: EventEmitter<void> = new EventEmitter<void>();
 
-  public form: FormGroup;
+  public filtersForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -25,26 +24,25 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this._filtersService.saveFiltresForm(this.form);
+    this._filtersService.saveFiltersForm(this.filtersForm);
   }
 
-  public search(): void {
-    const formValue: FiltersData = this.form.value;
+  public searchByFilters(): void {
+    const filtersData: FiltersData = this.filtersForm.value;
     
-    this._filtersService.parseFilters(formValue);
-
+    this._filtersService.parseFilters(filtersData);
     this.onFiltersChange.emit();
   }
 
   private _initForm(): void {
-    const isFormSaved: boolean = !!this._filtersService.filtresForm;
+    const hasFiltersForm: boolean = !!this._filtersService.filtersForm;
 
-    if (isFormSaved) {
-      this.form = this._filtersService.filtresForm;
+    if (hasFiltersForm) {
+      this.filtersForm = this._filtersService.filtersForm;
       return;
     }
 
-    this.form = this._formBuilder.group({
+    this.filtersForm = this._formBuilder.group({
       search: [''],
       select: [''],
       radio: [''],

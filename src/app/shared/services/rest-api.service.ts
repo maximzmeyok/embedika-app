@@ -1,7 +1,7 @@
 import { FiltersService } from './filters.service';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable, of, tap, from } from "rxjs";
+import { from } from "rxjs";
 
 @Injectable()
 export class RestApiService {
@@ -13,7 +13,7 @@ export class RestApiService {
   ) {}
 
   public getItems() {
-    const query: string = this._filtersService.query;
+    const query: string = this._getItemsQuery();
 
     return from(
       fetch(this._url, {
@@ -25,8 +25,42 @@ export class RestApiService {
       }).then((response) => response.json()));
   }
 
-  public getById(id: string) {
-    const query: string = `query User {
+  public getItem(id: string) {
+    const query: string = this._getItemQuery(id);
+
+    return from(
+      fetch(this._url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({ query: query })
+      }).then((response) => response.json()));
+  }
+
+  private _getItemsQuery(): string {
+    return `query Users {
+      Page(page: ${this._filtersService.currentPage}, perPage: ${this._filtersService.perPage}) {
+        pageInfo {
+          total
+          currentPage
+          perPage
+          lastPage
+        }
+        media${this._filtersService.getMediaFilter()} {
+          id
+          title {
+            userPreferred
+          }
+          season
+          status
+        }
+      }
+    }`
+  }
+
+  private _getItemQuery(id: string): string {
+    return `query User {
       Media(id: ${id}) {
         title {
           romaji
@@ -44,15 +78,6 @@ export class RestApiService {
           year
         }
       }
-    }`;
-
-    return from(
-      fetch(this._url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({ query: query })
-      }).then((response) => response.json()));
+    }`
   }
 }
