@@ -1,10 +1,7 @@
 import { FiltersService } from './../shared/services/filters.service';
-import { of } from 'rxjs';
-import { from } from 'rxjs';
-import { ApiResponse, ApiResponseDataPageMedia, FiltersData } from './../shared/interfaces';
+import { ApiResponse, ApiResponseDataPageMedia } from './../shared/interfaces';
 import { RestApiService } from './../shared/services/rest-api.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ResponseService } from '../shared/services/response.service';
 
 @Component({
@@ -43,23 +40,32 @@ export class DashboardPageComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.submit();
+    this.searchItems();
   }
 
-  public submit(): void {
+  public searchItems(): void {
     this._restApiService.getItems().subscribe((apiResponse: ApiResponse) => {
-      this._responseService.parseResponse(apiResponse);
+      this._responseService.parseApiResponse(apiResponse);
       this._changeDetector.markForCheck();
     });
   }
 
-  public previousPage(): void {
-    this._filtersService.currentPage--;
-    this.submit();
+  public nextPage(): void {
+    this._filtersService.nextPage();
+    this.searchItems();
   }
 
-  public nextPage(): void {
-    this._filtersService.currentPage++;
-    this.submit();
+  public previousPage(): void {
+    this._filtersService.previousPage();
+    this.searchItems();
+  }
+
+  public searchItemsByFilters(): void {
+    this._filtersService.resetPages();
+    this.searchItems();
+  }
+
+  public trackItemsByFn(index: number, item: ApiResponseDataPageMedia): number {
+    return item.id;
   }
 }

@@ -10,9 +10,11 @@ export class ResponseService {
     private _filtersService: FiltersService,
   ) {}
 
-  public parseResponse(apiResponse: ApiResponse) {
+  public parseApiResponse(apiResponse: ApiResponse) {
     const itemsLength: number = apiResponse.data.Page.media.length;
     const currentPage: number = apiResponse.data.Page.pageInfo.currentPage;
+
+    this._filtersService.lastPage = currentPage + 1;
 
     this.items = apiResponse.data.Page.media;
 

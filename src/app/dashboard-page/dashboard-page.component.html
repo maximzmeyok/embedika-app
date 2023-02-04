@@ -3,10 +3,10 @@
     <h1>Anilist</h1>
     
     <div class="items" *ngIf="hasItems; else loading">
-      <app-item-card [item]="item" *ngFor="let item of foundItems"></app-item-card>
+      <app-item-card [item]="item" *ngFor="let item of foundItems; trackBy: trackItemsByFn"></app-item-card>
 
       <div class="pagination">
-        <button mat-stroked-button [disabled]="isFirstPage" (click)="previousPage()">Previous</button>
+        <button mat-stroked-button [disabled]="isFirstPage" (click)="previousPage()">Prev</button>
         {{ currentpage }}
         <button mat-stroked-button [disabled]="isLastPage" (click)="nextPage()">Next</button>
       </div>
@@ -18,6 +18,6 @@
   </section>
 
   <aside>
-    <app-filters (onFormChange)="submit()"></app-filters>
+    <app-filters (onFiltersChange)="searchItemsByFilters()"></app-filters>
   </aside>
 </div>

@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class FiltersService {
   public currentPage: number = 1;
-  public lastPage: number = 250;
+  public lastPage: number = 2;
   public perPage: number = 5;
   public recentSearch: string;
 
@@ -55,5 +55,18 @@ export class FiltersService {
 
   public saveFiltresForm(form: FormGroup): void {
     this._filtresForm = form;
+  }
+
+  public resetPages(): void {
+    this.currentPage = 1;
+    this.lastPage = 2;
+  }
+
+  public nextPage() {
+    this.currentPage++;
+  }
+
+  public previousPage() {
+    this.currentPage--;
   }
 }

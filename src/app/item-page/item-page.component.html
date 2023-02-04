@@ -1,12 +1,30 @@
 <div class="wrapper">
   <div *ngIf="post$ | async as post; else loading">
-    <button mat-stroked-button [routerLink]="['/']">Вернуться</button>
+    <a [routerLink]="['/']">
+      <mat-icon fontIcon="arrow_back"></mat-icon>
+      Вернуться
+    </a>
     <h1>{{ post.title.userPreferred | titlecase }}</h1>
-    <p>Status: {{ post.status | titlecase }}</p>
-    <p>Description: {{ post.description }}</p>
-    <p>Season: {{ post.season | titlecase }}</p>
-    <p>Start date: {{ post.startDate.year }}</p>
-    <p>End date: {{ post.endDate.year }}</p>
+    <div>
+      <p>Status</p>
+      <p>{{ post.status || 'unknown' | titlecase }}</p>
+    </div>
+    <div>
+      <p>Season</p>
+      <p>{{ post.season || 'unknown' | titlecase }}</p>
+    </div>
+    <div>
+      <p>Start date</p>
+      <p>{{ post.startDate.year || 'Unknown' }}</p>
+    </div>
+    <div>
+      <p>End date</p>
+      <p>{{ post.endDate.year || 'Unknown' }}</p>
+    </div>
+    <div>
+      <p>Description</p>
+      <p>{{ post.description || 'Unknown' | titlecase }}</p>
+    </div>
   </div>
 
   <ng-template #loading>

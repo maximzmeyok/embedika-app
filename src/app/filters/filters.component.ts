@@ -11,7 +11,7 @@ import { FiltersService } from '../shared/services/filters.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FiltersComponent implements OnInit, OnDestroy {
-  @Output() public onFormChange: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public onFiltersChange: EventEmitter<void> = new EventEmitter<void>();
 
   public form: FormGroup;
 
@@ -33,7 +33,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     
     this._filtersService.parseFilters(formValue);
 
-    this.onFormChange.emit();
+    this.onFiltersChange.emit();
   }
 
   private _initForm(): void {

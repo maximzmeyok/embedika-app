@@ -1,3 +1,29 @@
+$main-color: #E5E5E5;
+$extra-color: #A5A5A5;
+$primary-color: #2962FF;
+
 .wrapper {
   padding: 40px;
+  a {
+    display: flex;
+    gap: 12px;
+    height: 40px;
+    vertical-align: middle;
+    align-items: center;
+    margin-bottom: 40px;
+    color: $primary-color;
+  }
+  > div {
+    div {
+      display: flex;
+      gap: 20px;
+    }
+    p {
+      width: 80px;
+    }
+    p:last-child {
+      color: $primary-color;
+      width: 100%;
+    }
+  }
 }
