@@ -8,6 +8,7 @@ export class FiltersService {
   public lastPage: number = 2;
   public perPage: number = 5;
   public filtersForm: FormGroup;
+  public recentSearches: FiltersData[] = JSON.parse(localStorage.getItem('recentSearches')) || [];
 
   private _searchFilter: string;
   private _seasonFilter: string;
@@ -15,12 +16,29 @@ export class FiltersService {
 
   public parseFilters(filtersData: FiltersData): void {
     this._searchFilter = filtersData.search;
-    this._seasonFilter = filtersData.radio;
-    this._statusFilter = filtersData.select;
+    this._seasonFilter = filtersData.season;
+    this._statusFilter = filtersData.status;
   }
 
   public saveFiltersForm(form: FormGroup): void {
     this.filtersForm = form;
+  }
+
+  public saveLastFilter(lastFilter: FiltersData): void {
+    const lastFilterString: string = JSON.stringify(lastFilter);
+    const recentFilterString: string = JSON.stringify(this.recentSearches[0]);
+    const isRepeatedFilter: boolean = lastFilterString === recentFilterString;
+
+    if (isRepeatedFilter) {
+      return;
+    }
+
+    if (this.recentSearches.length === 5) {
+      this.recentSearches.pop();
+    }
+
+    this.recentSearches.unshift(lastFilter);
+    localStorage.setItem('recentSearches', JSON.stringify(this.recentSearches));
   }
 
   public makeCurrentPageLast(): void {

@@ -30,7 +30,7 @@ export interface ApiResponseMediaTitle {
 }
 
 export interface FiltersData {
-  radio: string;
+  season: string;
   search: string;
-  select: string;
+  status: string;
 }

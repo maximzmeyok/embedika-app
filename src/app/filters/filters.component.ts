@@ -14,6 +14,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   public filtersForm: FormGroup;
 
+  public get hasRecentSearches(): boolean {
+    return !!this._filtersService.recentSearches.length;
+  }
+
+  public get recentSearches(): FiltersData[] {
+    return this._filtersService.recentSearches;
+  }
+
   constructor(
     private _formBuilder: FormBuilder,
     private _filtersService: FiltersService,
@@ -30,8 +38,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
   public searchByFilters(): void {
     const filtersData: FiltersData = this.filtersForm.value;
     
+    this._filtersService.saveLastFilter(this.filtersForm.value);
     this._filtersService.parseFilters(filtersData);
     this.onFiltersChange.emit();
+  }
+
+  public searchFromRecent(recentSearch: FiltersData): void {
+    this.filtersForm.setValue(recentSearch);
+    this.searchByFilters();
   }
 
   private _initForm(): void {
@@ -44,8 +58,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
     this.filtersForm = this._formBuilder.group({
       search: [''],
-      select: [''],
-      radio: [''],
+      status: [''],
+      season: [''],
     });
   }
 }

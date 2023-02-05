@@ -13,7 +13,7 @@
 
     <mat-form-field>
       <mat-label>Status</mat-label>
-      <mat-select formControlName="select" (selectionChange)="searchByFilters()">
+      <mat-select formControlName="status" (selectionChange)="searchByFilters()">
         <mat-option></mat-option>
         <mat-option value="FINISHED">Finished</mat-option>
         <mat-option value="RELEASING">Releasing</mat-option>
@@ -24,11 +24,20 @@
     </mat-form-field>
 
     <label id="season">Season</label>
-    <mat-radio-group aria-labelledby="season" class="radio-buttons" formControlName="radio" (change)="searchByFilters()">
+    <mat-radio-group aria-labelledby="season" class="radio-buttons" formControlName="season" (change)="searchByFilters()">
       <mat-radio-button value="WINTER">Winter</mat-radio-button>
       <mat-radio-button value="SPRING">Spring</mat-radio-button>
       <mat-radio-button value="SUMMER">Summer</mat-radio-button>
       <mat-radio-button value="FALL">Fall</mat-radio-button>
     </mat-radio-group>
   </form>
+
+  <label>Recent searches</label>
+  <mat-list *ngIf="hasRecentSearches">
+    <mat-list-item *ngFor="let recentSearch of recentSearches" class="recent-search" (click)="searchFromRecent(recentSearch)">
+      <span matListItemLine>Name: {{ recentSearch.search || '-' | titlecase }}</span>
+      <span matListItemLine>Status: {{ recentSearch.season || '-' | titlecase }}</span>
+      <span matListItemLine>Season: {{ recentSearch.status || '-' | titlecase }}</span>
+    </mat-list-item>
+  </mat-list>
 </div>

@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatListModule } from '@angular/material/list';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { ItemPageComponent } from './item-page/item-page.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -40,7 +41,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
   ],
   providers: [
     RestApiService,

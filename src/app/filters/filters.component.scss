@@ -6,9 +6,13 @@
   form {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
   }
   .radio-buttons {
     display: flex;
     flex-direction: column;
+  }
+  .recent-search {
+    cursor: pointer;
   }
 }
