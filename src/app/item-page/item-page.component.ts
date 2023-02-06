@@ -1,3 +1,4 @@
+import { ItemApiResponseRow } from './../shared/interfaces';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs';
 import { RestApiService } from './../shared/services/rest-api.service';
@@ -12,7 +13,7 @@ import { switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemPageComponent {
-  public post$: Observable<any>;
+  public item$: Observable<any>;
 
   constructor(
     private _route: ActivatedRoute,
@@ -20,11 +21,11 @@ export class ItemPageComponent {
   ) {}
 
   public ngOnInit(): void {
-    this.post$ = this._route.params.pipe(
+    this.item$ = this._route.params.pipe(
       switchMap((params: Params) => {
         return this._postService.getItem(params['id']);
       }),
-      map((response) => response.data.Media)
+      map((response: ItemApiResponseRow) => response.data.Media)
     );
   }
 }

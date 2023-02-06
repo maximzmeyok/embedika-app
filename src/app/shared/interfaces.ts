@@ -1,36 +1,51 @@
-export interface ApiResponseRow {
-  data: ApiResponseRowData;
+export interface ItemsApiResponseRow {
+  data: {
+    Page: ItemsApiResponse
+  };
 }
 
-export interface ApiResponseRowData {
-  Page: ApiResponse;
+export interface ItemsApiResponse {
+  pageInfo: {
+    total: number;
+    currentPage: number;
+    perPage: number;
+    lastPage: number;
+  };
+  media: ItemsApiResponseMedia[];
 }
 
-export interface ApiResponse {
-  pageInfo: ApiResponsePageInfo;
-  media: ApiResponseMedia[];
-}
-
-export interface ApiResponsePageInfo {
-  total: number;
-  currentPage: number;
-  perPage: number;
-  lastPage: number;
-}
-
-export interface ApiResponseMedia {
+export interface ItemsApiResponseMedia {
   id: number;
-  title: ApiResponseMediaTitle;
+  title: {
+    userPreferred: string;
+  };
   season: string;
   status: string;
-}
-
-export interface ApiResponseMediaTitle {
-  userPreferred: string;
 }
 
 export interface FiltersData {
   season: string;
   search: string;
   status: string;
+}
+
+export interface ItemApiResponseRow {
+  data: {
+    Media: ItemApiResponse;
+  };
+}
+
+export interface ItemApiResponse {
+  description: string;
+  season: string;
+  status: string;
+  startDate: {
+    year: number;
+  };
+  endDate: {
+    year: number;
+  };
+  title: {
+    userPreferred: string;
+  };
 }

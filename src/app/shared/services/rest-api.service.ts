@@ -1,7 +1,8 @@
+import { ItemApiResponseRow, ItemsApiResponseRow } from './../interfaces';
 import { FiltersService } from './filters.service';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { from } from "rxjs";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class RestApiService {
@@ -12,30 +13,20 @@ export class RestApiService {
     private _filtersService: FiltersService,
   ) {}
 
-  public getItems() {
+  public getItems(): Observable<ItemsApiResponseRow> {
     const query: string = this._getItemsQuery();
 
-    return from(
-      fetch(this._url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({ query: query })
-      }).then((response) => response.json()));
+    return this._http.post<ItemsApiResponseRow>(this._url,
+      JSON.stringify({query: query}),
+      {headers: { "Content-type": "application/json"}});
   }
 
-  public getItem(id: string) {
+  public getItem(id: string): Observable<ItemApiResponseRow> {
     const query: string = this._getItemQuery(id);
 
-    return from(
-      fetch(this._url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({ query: query })
-      }).then((response) => response.json()));
+    return this._http.post<ItemApiResponseRow>(this._url,
+      JSON.stringify({query: query}),
+      {headers: {"Content-type": "application/json"}});
   }
 
   private _getItemsQuery(): string {
@@ -63,9 +54,6 @@ export class RestApiService {
     return `query User {
       Media(id: ${id}) {
         title {
-          romaji
-          english
-          native
           userPreferred
         }
         status

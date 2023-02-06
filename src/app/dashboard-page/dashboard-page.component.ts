@@ -1,5 +1,5 @@
 import { FiltersService } from './../shared/services/filters.service';
-import { ApiResponse, ApiResponseMedia, ApiResponseRow } from './../shared/interfaces';
+import { ItemsApiResponse, ItemsApiResponseMedia, ItemsApiResponseRow } from './../shared/interfaces';
 import { RestApiService } from './../shared/services/rest-api.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ResponseService } from '../shared/services/response.service';
@@ -16,7 +16,7 @@ export class DashboardPageComponent implements OnInit {
     return !!this._responseService.foundItems;
   }
 
-  public get foundItems(): ApiResponseMedia[] {
+  public get foundItems(): ItemsApiResponseMedia[] {
     return this._responseService.foundItems;
   }
 
@@ -44,8 +44,8 @@ export class DashboardPageComponent implements OnInit {
   }
 
   public searchItems(): void {
-    this._restApiService.getItems().subscribe((apiResponseRow: ApiResponseRow) => {
-      const apiResponse: ApiResponse = apiResponseRow.data.Page;
+    this._restApiService.getItems().subscribe((itemsApiResponseRow: ItemsApiResponseRow) => {
+      const apiResponse: ItemsApiResponse = itemsApiResponseRow.data.Page;
 
       this._responseService.parseApiResponse(apiResponse);
       this._changeDetector.markForCheck();
@@ -67,7 +67,7 @@ export class DashboardPageComponent implements OnInit {
     this.searchItems();
   }
 
-  public trackItemsByFn(index: number, item: ApiResponseMedia): number {
+  public trackItemsByFn(index: number, item: ItemsApiResponseMedia): number {
     return item.id;
   }
 }

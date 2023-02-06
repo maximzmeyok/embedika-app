@@ -1,29 +1,29 @@
 <div class="wrapper">
-  <div *ngIf="post$ | async as post; else loading">
+  <div *ngIf="item$ | async as item; else loading">
     <a [routerLink]="['/']">
       <mat-icon fontIcon="arrow_back"></mat-icon>
       Вернуться
     </a>
-    <h1>{{ post.title.userPreferred | titlecase }}</h1>
+    <h1>{{ item.title.userPreferred | titlecase }}</h1>
     <div>
       <p>Status</p>
-      <p>{{ post.status || 'unknown' | titlecase }}</p>
+      <p>{{ item.status || 'unknown' | titlecase }}</p>
     </div>
     <div>
       <p>Season</p>
-      <p>{{ post.season || 'unknown' | titlecase }}</p>
+      <p>{{ item.season || 'unknown' | titlecase }}</p>
     </div>
     <div>
       <p>Start date</p>
-      <p>{{ post.startDate.year || 'Unknown' }}</p>
+      <p>{{ item.startDate.year || 'Unknown' }}</p>
     </div>
     <div>
       <p>End date</p>
-      <p>{{ post.endDate.year || 'Unknown' }}</p>
+      <p>{{ item.endDate.year || 'Unknown' }}</p>
     </div>
     <div>
       <p>Description</p>
-      <p>{{ post.description || 'Unknown' | titlecase }}</p>
+      <p>{{ item.description || 'Unknown' | titlecase }}</p>
     </div>
   </div>
 
