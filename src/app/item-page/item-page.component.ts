@@ -1,4 +1,4 @@
-import { ItemApiResponseRow } from './../shared/interfaces';
+import { ItemApiResponse, ItemApiResponseRow } from './../shared/interfaces';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs';
 import { RestApiService } from './../shared/services/rest-api.service';
@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemPageComponent {
-  public item$: Observable<any>;
+  public item$: Observable<ItemApiResponse>;
 
   constructor(
     private _route: ActivatedRoute,
